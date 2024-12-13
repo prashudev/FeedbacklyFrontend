@@ -1,0 +1,79 @@
+I am using a React NextJS app to collect feedback on a presentation I am giving. The app should also display feedback responses.
+
+Your first task is to create a feedback form named "Presentation Feedback"
+Below "Presentation Feedback", add a "Enter your Name" text field.
+
+Below it add the below questions:
+
+To what extent do you believe Gen AI can replace traditional coding methods?
+How likely will you adopt Gen AI tools in your current development process?
+How likely are you to replace your morning coffee with AI-generated code?
+ 
+For each question, have a clickable star icon to represent 1-5 rating. Make the icons gradually appear bigger from 1 to 5. 
+Add a Submit button that calls a backend POST API https://feedbacklybackend.onrender.com/api/v1/submitfeedback
+, sending request body in below json format
+{
+    "userName": "Name",
+    "feedback": [
+        {
+            "question": "To what extent do you believe Gen AI can replace traditional coding methods?",
+            "rating": 5
+        },
+        {
+            "question": "How likely will you adopt Gen AI tools in your current development process?",
+            "rating": 2
+        },
+        {
+            "question": "How likely are you to replace your morning coffee with AI-generated code?",
+            "rating": 2
+        }
+    ]
+}
+ 
+Next, Add a View Feedback hyperlink button to load a component to display feedback responses.
+On clicking Feedback hyperlink, make GET API call to https://feedbacklybackend.onrender.com/api/v1/getfeedbackresponse
+
+Which responds back with below json data:
+[
+  {
+    "userName": "Prashanth",
+    "feedback": [
+      {
+        "question": "To what extent do you believe Gen AI can replace traditional coding methods?",
+        "rating": 4,
+        "geminiResponse": [
+          {
+            "sentimentAnalysisScore": 4,
+            "response": "**Analysis:**\n\n1. **Specific Question:** The question is well-defined and asks about the potential of Generative AI (Gen AI) to replace traditional coding methods.\n\n2. **Rating Provided:** The rating of 4 out of 5 indicates a moderate to positive evaluation.\n\n**Potential Areas of Improvement (for a lower rating):**\n\n* Provide more specific examples of how Gen AI can or cannot replace traditional coding methods.\n* Discuss the limitations and challenges of using Gen AI for coding.\n* Address potential concerns about the impact of Gen AI on software development jobs.\n\n**Positive Aspects (for a higher rating):**\n\n* The user acknowledges the potential of Gen AI to revolutionize coding methods.\n* The user demonstrates a balanced understanding of the topic, recognizing that Gen AI may not completely replace traditional coding but could significantly enhance it.\n* The user's feedback is clear and concise, providing a straightforward evaluation of the question."
+          }
+        ]
+      },
+      {
+        "question": "How likely will you adopt Gen AI tools in your current development process?",
+        "rating": 4,
+        "geminiResponse": [
+          {
+            "sentimentAnalysisScore": 4,
+            "response": "1. **Question:** The question asked gauges the likelihood of adopting Generative AI (Gen AI) tools in the current development process.\n2. **Rating:** A rating of 4 out of 5 indicates a positive inclination towards adopting Gen AI tools.\n3. **Areas of Improvement (if rating is low):** If the rating was lower, potential areas of improvement could include addressing concerns around data privacy, bias mitigation, and the need for enhanced training and upskilling of developers.\n4. **Positive Aspects (if rating is high):** A high rating highlights the perceived value of Gen AI tools, such as potential improvements in development efficiency, enhanced creativity, and the streamlining of certain developmental tasks."
+          }
+        ]
+      },
+      {
+        "question": "How likely are you to replace your morning coffee with AI-generated code?",
+        "rating": 4,
+        "geminiResponse": [
+          {
+            "sentimentAnalysisScore": 4,
+            "response": "**Analysis:**\n\n**1. Question:**\n\nThe question is specific and relates to the potential adoption of AI-generated code as a replacement for morning coffee.\n\n**2. Rating:**\n\nA rating of 4 out of 5 indicates a positive response, suggesting a willingness to consider replacing coffee with AI code.\n\n**3. Improvement Areas:**\n\nIf the rating had been lower, potential areas for improvement include:\n\n* Clarifying the benefits and drawbacks of AI-generated code in replacing coffee\n* Providing more tangible examples or evidence of the efficacy of AI code in this context\n* Addressing any potential concerns or hesitations users may have\n\n**4. Positive Aspects:**\n\nThe high rating highlights the following positive aspects:\n\n* Users are generally receptive to the idea of using AI technology in their daily routines.\n* They recognize the potential value of AI-generated code as a substitute for activities such as coffee consumption.\n* This feedback provides valuable insight into user preferences and the potential market for AI-generated code in everyday applications."
+          }
+        ]
+      }
+    ]
+  }
+]
+ 
+Display above data in form of table
+
+Once post request is completed redirect user to view-feedback view
+ 
+Note: Enable the Submit Feeback button only when at least 1 question is entered and three characters are typed in the text field
